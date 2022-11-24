@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import Gif from "./gif";
 import GifList from "./gif_list";
 import SearcBar from "./search_bar";
+import giphy from "giphy-api";
+import giphyApi from "giphy-api";
 
 class App extends Component {
   constructor(props) {
@@ -11,7 +13,24 @@ class App extends Component {
       gifs: [],
       selectedGifsId: "https://giphy.com/embed/ikPoYdohZw7PqyfvvX",
     };
+
+    this.search("homer");
   }
+
+  search = (query) => {
+    giphy("CWRw42wn2BctIh3yATVjXbuGfUM59FnG").search(
+      {
+        q: query,
+        rating: "g",
+      },
+      (err, res) => {
+        this.setState({
+          gifs: res.data,
+        });
+      }
+    );
+  };
+
   render() {
     return (
       <div>
